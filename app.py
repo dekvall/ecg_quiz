@@ -72,6 +72,7 @@ def create_ecg_plot_from_local(case, from_sample=10000, to_sample=14000):
 def create_swedish_ecg_plot_from_local(case, from_sample=10000, to_sample=14000):
 	global curr_info
 	fig = tools.make_subplots(rows=6, cols=2, shared_xaxes=False, shared_yaxes=False, subplot_titles=swedish_plot_positions_col_wise)
+	print(case)
 	signals, fields = wfdb.rdsamp('data/{}'.format(case),
 									sampfrom=from_sample,
 									sampto=to_sample, 
