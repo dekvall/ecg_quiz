@@ -19,10 +19,10 @@
         </div>
         <div class="col-xs-3">
             <label>The EKG suggests that the patient has/is ... </label>
-            <select class="form-control" id ='first_cat'>
+            <select class="form-control" id ="answers">
                 <option value="infarction">Myocardial infarction</option>
                 <option value="cardiomyopathy">Cardiomyopathy/Heart failure</option>
-                <option value="">Bundle branch block</option>
+                <option value="bundle">Bundle branch block</option>
                 <option value="dysrhythmia">Dysrhythmia</option>
                 <option value="hypertrophy">Myocardial hypertrophy</option>
                 <option value="valvular">Valvular heart disease</option>
@@ -30,7 +30,10 @@
                 <option value="misc">Miscellaneous</option>
                 <option value="healthy">Healthy</option>
             </select>
-            <button value="submit">Submit answer</button>
+            <button value="submit" id="submit_answer">Submit answer</button>
+            <a href="{{ url_for('index') }}"><button>Next</button></a>
+        </div>
+        <div id="answer_comment">
         </div>
 	</div>
 </div>

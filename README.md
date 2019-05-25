@@ -1,2 +1,3 @@
 # ecg_quiz
-simple ECG quiz with Flask
+A simple flask app to quiz the user on different ECG data
+
