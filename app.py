@@ -17,7 +17,7 @@ curr_info = None
 @app.route('/')
 def index():
 	case = random.choice(records)
-	p = create_ecg_plot_from_local(case)
+	p = create_ecg_plot_from_online_storage(case)
 	return render_template('index.html', plot=p)
 
 
@@ -25,6 +25,30 @@ def create_ecg_plot_from_local(case, from_sample=10000, to_sample=14000):
 	global curr_info
 	fig = tools.make_subplots(rows=3, cols=4, shared_xaxes=False, shared_yaxes=False)
 	signals, fields = wfdb.rdsamp('data/{}'.format(case),
+									sampfrom=from_sample,
+									sampto=to_sample, 
+									channels=[0,1,2,3,4,5,6,7,8,9,10,11])
+	x = np.linspace(0,fields['sig_len']/fields['fs'],fields['sig_len'])
+	curr_info = fields['comments']
+	for idx, name in enumerate(fields['sig_name']):
+		trace = go.Scatter(
+				x = x,
+				y = signals[:,idx],
+				mode = 'lines',
+				name = name.upper()
+				)
+		row = idx%3+1
+		col = idx//3+1
+		fig.append_trace(trace, row, col)
+
+	graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+	return graphJSON
+
+def create_ecg_plot_from_online_storage(case, from_sample=10000, to_sample=14000):
+	global curr_info
+	fig = tools.make_subplots(rows=3, cols=4, shared_xaxes=False, shared_yaxes=False)
+	signals, fields = wfdb.rdsamp('{}'.format(case),
+									pb_dir = 'ptbdb/{}'.format(case[:10]),
 									sampfrom=from_sample,
 									sampto=to_sample, 
 									channels=[0,1,2,3,4,5,6,7,8,9,10,11])
