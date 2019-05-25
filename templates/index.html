@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>EKG Quiz</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="chart" id="bargraph">
+                <script>
+                    var graphs = {{plot | safe}};
+                    Plotly.plot('bargraph',graphs,{});
+                </script>
+            </div>
+        </div>
+        <div class="col-xs-3">
+            <label>The EKG suggests that the patient has/is ... </label>
+            <select class="form-control" id ='first_cat'>
+                <option value="infarction">Myocardial infarction</option>
+                <option value="cardiomyopathy">Cardiomyopathy/Heart failure</option>
+                <option value="">Bundle branch block</option>
+                <option value="dysrhythmia">Dysrhythmia</option>
+                <option value="hypertrophy">Myocardial hypertrophy</option>
+                <option value="valvular">Valvular heart disease</option>
+                <option value="myocarditis">Myocarditis</option>
+                <option value="misc">Miscellaneous</option>
+                <option value="healthy">Healthy</option>
+            </select>
+            <button value="submit">Submit answer</button>
+        </div>
+	</div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery-1.11.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/plots.js') }}"></script>
+</body>
+</html>
